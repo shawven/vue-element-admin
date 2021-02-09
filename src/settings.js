@@ -1,11 +1,22 @@
 module.exports = {
-  title: 'Vue Element Admin',
+
+  /**
+   * @type {string}
+   * @description 系统名称
+   */
+  title: '后台管理系统',
+
+  /**
+   * @type {string}
+   * @description 侧边栏LOGO连接
+   */
+  logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
 
   /**
    * @type {boolean} true | false
    * @description Whether show the settings right-panel
    */
-  showSettings: true,
+  showSettings: false,
 
   /**
    * @type {boolean} true | false
@@ -17,13 +28,13 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether fix the header
    */
-  fixedHeader: false,
+  fixedHeader: true,
 
   /**
    * @type {boolean} true | false
    * @description Whether show the logo in sidebar
    */
-  sidebarLogo: false,
+  sidebarLogo: true,
 
   /**
    * @type {string | array} 'production' | ['production', 'development']
