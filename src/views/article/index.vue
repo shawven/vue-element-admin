@@ -3,11 +3,11 @@
     <base-list ref="list" :action="action" :query.sync="query">
       <template slot="filters">
         <el-input v-model="query.subject" placeholder="标题" style="width: 200px;" class="filter-item" clearable />
-        <el-select v-model="query.platform" placeholder="栏目" style="width: 130px;" class="filter-item" clearable>
-          <el-option v-for="(category, index) in categories" :key="index" :label="category" :value="index" />
+        <el-select v-model="query.type" placeholder="栏目" style="width: 130px;" class="filter-item" clearable>
+          <el-option v-for="(v, k) in categories" :key="k" :label="v" :value="k" />
         </el-select>
         <el-select v-model="query.platform" placeholder="所属平台" style="width: 130px;" class="filter-item" clearable>
-          <el-option v-for="(platform, index) in platforms" :key="index" :label="platform" :value="index" />
+          <el-option v-for="(v, k) in platforms" :key="k" :label="v" :value="k" />
         </el-select>
       </template>
       <template slot="buttons">
@@ -69,12 +69,12 @@ export default {
       creatorVisible: false,
       currentRow: {},
       currentIndex: null,
-      platforms: ['财税官网', '云服务软件'],
+      platforms: { account: '财税官网', software: '云服务软件' },
       categories: ['公司动态', '财税资讯', '财税头条'],
       query: {
-        contacts: null,
-        phone: null,
-        followUp: null
+        subject: null,
+        type: null,
+        platform: 'account'
       }
     }
   },

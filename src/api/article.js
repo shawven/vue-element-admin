@@ -1,8 +1,10 @@
 import request from '@/utils/request'
 
 export function fetchList(query) {
+  const platform = query.platform
+  delete query.platform
   return request({
-    url: '/article/list',
+    url: `/article/${platform}`,
     method: 'get',
     params: query
   })
@@ -10,9 +12,8 @@ export function fetchList(query) {
 
 export function fetchArticle(id) {
   return request({
-    url: '/article/detail',
-    method: 'get',
-    params: { id }
+    url: `/article/${id}`,
+    method: 'get'
   })
 }
 

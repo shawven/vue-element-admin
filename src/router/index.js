@@ -153,29 +153,6 @@ export const constantRoutes = [
         hidden: true
       }
     ]
-  },
-  {
-    path: '/ad',
-    component: Layout,
-    redirect: '/ad/index',
-    meta: {
-      title: '广告管理',
-      icon: 'international'
-    },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/ad/index'),
-        name: 'AdIndex',
-        meta: { title: '广告列表', icon: 'list' }
-      },
-      {
-        path: 'position',
-        component: () => import('@/views/ad/position'),
-        name: 'AdPosition',
-        meta: { title: '广告位置', icon: 'guide' }
-      }
-    ]
   }
 ]
 

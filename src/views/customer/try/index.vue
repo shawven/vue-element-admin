@@ -85,7 +85,7 @@ export default {
     update() {
       this.$refs.remarkForm.validate(valid => {
         if (valid) {
-          this.selectRow.followUp = 1
+          this.Z.followUp = 1
           const { id, remark, followUp } = this.selectRow
           updateTryCustomer({ id, remark, followUp }).then((response) => {
             const { updateTime } = response.data

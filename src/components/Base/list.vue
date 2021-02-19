@@ -66,7 +66,7 @@ export default {
     }
   },
   data() {
-    const baseQuery = { page: 1, limit: 20, sort: '+' + this.primary }
+    const baseQuery = { page: 1, limit: 20, sort: this.primary }
     const tempQuery = this.deepcopy({ ...baseQuery, ...this.query })
     this.updateQuery(tempQuery)
 
@@ -209,12 +209,8 @@ export default {
      * @param data
      */
     onSortChange(data) {
-      const { prop, order } = data
-      if (order === 'ascending') {
-        this.query.sort = '+' + prop
-      } else {
-        this.query.sort = '-' + prop
-      }
+      const { order } = data
+      this.query.sort = order + 'ascending' ? '+' : '-'
       this.query.page = 1
       this.getList()
     }
