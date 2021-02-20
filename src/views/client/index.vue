@@ -28,17 +28,17 @@
     </base-list>
 
     <el-dialog title="编辑应用" :visible.sync="editorVisible" width="500px">
-      <el-form ref="submitForm" :model="selectRow" label-position="left" label-width="70px">
+      <el-form ref="submitForm" :model="selectRow" label-position="left" label-width="120px">
         <el-form-item label="访问资源" prop="resourceId" width="150">
           <el-input v-model="selectRow.resourceId" />
         </el-form-item>
-        <el-form-item label="授权范围" prop="scope" width="110">
-          <el-input v-model="selectRow.scope" />
+        <el-form-item label="授权范围" prop="scopeArr" width="110" :rules="[{required:true, type:'array', message:'请选择授权范围'}]">
+          <el-checkbox-group v-model="selectRow.scopeArr">
+            <el-checkbox v-for="(v, k) in allScopes" :key="k" :label="k">{{ v }}</el-checkbox>
+          </el-checkbox-group>
         </el-form-item>
         <el-form-item label="授权类型">
-          <el-checkbox-group
-            v-model="selectRow.grantTypeArr"
-          >
+          <el-checkbox-group v-model="selectRow.grantTypeArr">
             <el-checkbox v-for="(v, k) in grantTypes" :key="k" :label="k">{{ v }}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
@@ -48,11 +48,11 @@
         <el-form-item label="权限" prop="authorities">
           <el-input v-model="selectRow.authorities" />
         </el-form-item>
-        <el-form-item label="访问令牌时间" prop="accessTokenValidity" :rules="[{required:true, type:'number', message:'访问令牌时间错误'}]">
-          <el-input v-model="selectRow.accessTokenValidity" />
+        <el-form-item label="访问令牌有效期" prop="accessTokenValidity" :rules="[{required:true, type:'number', min:3600, message:'访问令牌时间错误'}]">
+          <el-input v-model.number="selectRow.accessTokenValidity" />
         </el-form-item>
-        <el-form-item label="刷新令牌时间" prop="refreshTokenValidity" :rules="[{required:true, type:'number', message:'刷新令牌时间错误'}]">
-          <el-input v-model="selectRow.refreshTokenValidity" />
+        <el-form-item label="刷新令牌有效期" prop="refreshTokenValidity" :rules="[{required:true, type:'number', min:3600, message:'刷新令牌时间错误'}]">
+          <el-input v-model.number="selectRow.refreshTokenValidity" />
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -72,6 +72,11 @@ export default {
       action: fetchList,
       editorVisible: false,
       selectRow: {},
+      allScopes: {
+        read: '读',
+        write: '写',
+        all: '全部'
+      },
       grantTypes: {
         'password': '密码模式',
         'authorization_code': '授权码模式',
@@ -89,8 +94,7 @@ export default {
       this.$refs.submitForm.validate(valid => {
         if (valid) {
           this.selectRow.status = 1
-          const { id, remark, status } = this.selectRow
-          updateClient({ id, remark, status }).then((response) => {
+          updateClient(this.selectRow).then((response) => {
             const { updateTime } = response.data
             this.editorVisible = false
             this.$message.success('处理成功')
@@ -106,6 +110,7 @@ export default {
       this.editorVisible = true
       const selectRow = this.deepcopy(row)
       selectRow.grantTypeArr = selectRow.authorizedGrantTypes.split(',')
+      selectRow.scopeArr = selectRow.scope.split(',')
       this.selectRow = selectRow
     }
   }
