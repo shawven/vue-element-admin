@@ -94,25 +94,19 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/customer',
+    path: '/client',
     component: Layout,
-    redirect: '/customer/try/index',
+    redirect: '/client/index',
     meta: {
-      title: '客户列表',
+      title: '客户端管理',
       icon: 'peoples'
     },
     children: [
       {
-        path: 'try/index',
-        component: () => import('@/views/customer/try/index'),
-        name: 'TryIndex',
-        meta: { title: '试用客户', icon: 'user' }
-      },
-      {
-        path: 'copartner/index',
-        component: () => import('@/views/customer/copartner/index'),
-        name: 'CopartnerIndex',
-        meta: { title: '招商合作', icon: 'user' }
+        path: 'index',
+        component: () => import('@/views/client/index'),
+        name: 'ClientIndex',
+        meta: { title: '客户端列表', icon: 'user' }
       }
     ]
   },

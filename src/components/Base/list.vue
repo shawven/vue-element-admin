@@ -27,7 +27,7 @@
       v-show="total>0"
       :total="total"
       :page.sync="query.page"
-      :limit.sync="query.limit"
+      :limit.sync="query.size"
       @pagination="getList"
     />
   </div>
@@ -66,7 +66,7 @@ export default {
     }
   },
   data() {
-    const baseQuery = { page: 1, limit: 20, sort: this.primary }
+    const baseQuery = { page: 1, size: 20, sort: this.primary }
     const tempQuery = this.deepcopy({ ...baseQuery, ...this.query })
     this.updateQuery(tempQuery)
 
@@ -99,7 +99,7 @@ export default {
         this.listLoading = false
         // eslint-disable-next-line no-prototype-builtins
         if (this.list && this.list.length > 0 && !this.list[0].hasOwnProperty(this.primary)) {
-          throw Error('行对象没有 "' + this.primary + '" 属性')
+          console.error('行数据没有 "' + this.primary + '" 属性')
         }
       }).catch(reason => {
         this.list = []
